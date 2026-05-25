@@ -1,4 +1,4 @@
-FROM openjdk:17
+FROM amazoncorretto:21
 
 LABEL version="1.0"
 LABEL maintainer="prashant"
