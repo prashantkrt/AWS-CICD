@@ -11,7 +11,7 @@
 	<groupId>com.myLearning</groupId>
 	<artifactId>course-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>aws-demo</name>
+	<name>course-service</name>
 	<description>Simple Spring Boot Application</description>
 	<properties>
 		<java.version>17</java.version>
