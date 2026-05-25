@@ -1,15 +1,6 @@
 .git
-.gitignore
-
 .idea
 .vscode
-
-target
-build
-
 README.md
-
 .DS_Store
-*.log
-
-docker-compose.yml
+target/*.original
