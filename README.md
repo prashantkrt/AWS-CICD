@@ -179,80 +179,7 @@ Example URI:
 ![img_2.png](img_2.png)
 ---
 
-# STEP 7 — Create ECS Cluster
-
-AWS Console:
-
-```text
-Amazon ECS → Clusters → Create Cluster
-```
-
-Settings:
-
-```text
-Cluster Name: course-cluster
-Launch Type : Fargate
-```
-
----
-
-# STEP 8 — Create Task Definition
-
-AWS Console:
-
-```text
-ECS → Task Definitions → Create
-```
-
-Settings:
-
-```text
-Task Definition Name : course-task
-Launch Type          : Fargate
-Container Name       : course-service
-Port                 : 8085
-CPU                  : 256
-Memory               : 512
-```
-
-Image URI:
-
-```text
-<ECR_REPOSITORY_URI>
-```
-
----
-
-# STEP 9 — Create ECS Service
-
-Inside ECS Cluster:
-
-```text
-Create Service
-```
-
-Settings:
-
-```text
-Launch Type : Fargate
-Desired Task: 1
-```
-
-Networking:
-
-- Public subnet
-- Auto assign public IP = ENABLED
-
-Security Group Inbound Rule:
-
-```text
-Custom TCP : 8085
-Source     : 0.0.0.0/0
-```
-
----
-
-# STEP 10 — Create buildspec.yml
+# STEP 7 — Create buildspec.yml
 
 Create file:
 
@@ -307,7 +234,7 @@ artifacts:
 
 ---
 
-# STEP 11 — Create CodeBuild Project
+# STEP 8 — Create CodeBuild Project
 
 AWS Console:
 
@@ -320,21 +247,6 @@ Source:
 ```text
 GitHub
 ```
-
-Environment:
-
-```text
-Managed Image
-Ubuntu
-Standard Runtime
-```
-
-IMPORTANT:
-
-```text
-Enable Privileged Mode
-```
-
 Buildspec:
 
 ```text
@@ -343,7 +255,7 @@ Use buildspec.yml from source code
 
 ---
 
-# STEP 12 — Add IAM Permissions to CodeBuild Role
+# STEP 9 — Add IAM Permissions to CodeBuild Role
 
 Add these policies:
 
@@ -353,10 +265,78 @@ AmazonECS_FullAccess
 AmazonS3FullAccess
 CloudWatchLogsFullAccess
 ```
+![img_7.png](img_7.png)
+---
+![img_5.png](img_5.png)
+---
+![img_4.png](img_4.png)
+---
+![img_3.png](img_3.png)
+---
+
+![img_8.png](img_8.png)
+
+# STEP 11- Run the code build
+---
+# STEP 12 — Create Task Definition
+
+AWS Console:
+
+```text
+ECS → Task Definitions → Create
+```
+
+Settings:
+
+```text
+Task Definition Name : course-task
+Launch Type          : Fargate
+Container Name       : course-service
+Port                 : 8085
+CPU                  : 256
+Memory               : 512
+```
+
+Image URI:
+
+```text
+the same which got crewated
+<ECR_REPOSITORY_URI>
+```
 
 ---
 
-# STEP 13 — Create CodePipeline
+# STEP 13 — Create ECS Service
+
+Inside ECS Cluster:
+
+```text
+Create Service
+```
+
+Settings:
+
+```text
+Launch Type : Fargate
+Desired Task: 1
+```
+
+Networking:
+
+- Public subnet
+- Auto assign public IP = ENABLED
+
+Security Group Inbound Rule:
+
+```text
+Custom TCP : 8085
+Source     : 0.0.0.0/0
+```
+
+---
+
+![img_11.png](img_11.png)
+# STEP 14 — Create CodePipeline
 
 AWS Console:
 
@@ -401,7 +381,7 @@ course-service
 
 ---
 
-# STEP 14 — Trigger Pipeline
+# STEP 15 — Trigger Pipeline
 
 Push changes:
 
@@ -421,7 +401,7 @@ Pipeline automatically:
 
 ---
 
-# STEP 15 — Access Application
+# STEP 16 — Access Application
 
 Go to:
 
@@ -493,13 +473,21 @@ Add ECR permissions to CodeBuild role.
 
 ---
 
-# Recommended Next Learning
-
-- ECS + Load Balancer
-- Auto Scaling
-- Secrets Manager
-- CloudWatch Logs
-- Terraform
-- Blue/Green Deployment
-- Kubernetes (EKS)
-
+# Complete Flow
+| Step | Action                  |
+| ---- | ----------------------- |
+| 1    | Spring Boot App         |
+| 2    | Dockerfile              |
+| 3    | .dockerignore           |
+| 4    | Local Docker Test       |
+| 5    | Push GitHub             |
+| 6    | Create ECR              |
+| 7    | Create buildspec.yml    |
+| 8    | Create CodeBuild        |
+| 9    | Attach IAM Policies     |
+| 10   | Run Build + Push to ECR |
+| 11   | Create ECS Cluster      |
+| 12   | Create Task Definition  |
+| 13   | Create ECS Service      |
+| 14   | Create CodePipeline     |
+| 15   | Trigger Pipeline        |
