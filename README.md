@@ -276,10 +276,14 @@ CloudWatchLogsFullAccess
 
 ![img_8.png](img_8.png)
 
-# STEP 11- Run the code build
 ---
+# STEP 11 - Run the code build
+![img_21.png](img_21.png)
+
 # STEP 12 — Create Task Definition
 
+![img_16.png](img_16.png)
+![img_15.png](img_15.png)
 AWS Console:
 
 ```text
@@ -292,26 +296,34 @@ Settings:
 Task Definition Name : course-task
 Launch Type          : Fargate
 Container Name       : course-service
+Container Image      : 263856761644.dkr.ecr.ap-south-1.amazonaws.com/course-service:latest or directly repo uri it will pick the latest
 Port                 : 8085
 CPU                  : 256
 Memory               : 512
 ```
 
-Image URI:
+Image URI:63856761644.dkr.ecr.ap-south-1.amazonaws.com/course-service:latest
 
 ```text
 the same which got crewated
 <ECR_REPOSITORY_URI>
 ```
+![img_11.png](img_11.png)
+![img_17.png](img_17.png)
 
 ---
 
-# STEP 13 — Create ECS Service
+# STEP 13 — Create ECS Cluster/Service
+
+![img_18.png](img_18.png)
+![img_19.png](img_19.png)
 
 Inside ECS Cluster:
 
 ```text
 Create Service
+or 
+Run new Task either way we can do !!!
 ```
 
 Settings:
@@ -332,10 +344,14 @@ Security Group Inbound Rule:
 Custom TCP : 8085
 Source     : 0.0.0.0/0
 ```
+![img_20.png](img_20.png)
+![img_22.png](img_22.png)
 
+### Test
+![img_23.png](img_23.png)
 ---
 
-![img_11.png](img_11.png)
+
 # STEP 14 — Create CodePipeline
 
 AWS Console:
