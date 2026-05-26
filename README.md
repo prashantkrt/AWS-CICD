@@ -394,7 +394,7 @@ Container name MUST match:
 ```text
 course-service
 ```
-
+![img.png](images/img24.png)
 ---
 
 # STEP 15 — Trigger Pipeline
@@ -490,20 +490,45 @@ Add ECR permissions to CodeBuild role.
 ---
 
 # Complete Flow
-| Step | Action                  |
-| ---- | ----------------------- |
-| 1    | Spring Boot App         |
-| 2    | Dockerfile              |
-| 3    | .dockerignore           |
-| 4    | Local Docker Test       |
-| 5    | Push GitHub             |
-| 6    | Create ECR              |
-| 7    | Create buildspec.yml    |
-| 8    | Create CodeBuild        |
-| 9    | Attach IAM Policies     |
-| 10   | Run Build + Push to ECR |
-| 11   | Create ECS Cluster      |
-| 12   | Create Task Definition  |
-| 13   | Create ECS Service      |
-| 14   | Create CodePipeline     |
-| 15   | Trigger Pipeline        |
+| Step | Action                         | Description                                               |
+| ---- | ------------------------------ | --------------------------------------------------------- |
+| 1    | Spring Boot App                | Create and test Spring Boot application locally           |
+| 2    | Create Dockerfile              | Dockerize application                                     |
+| 3    | Create `.dockerignore`         | Ignore unnecessary files                                  |
+| 4    | Local Docker Test              | Build and run container locally                           |
+| 5    | Push to GitHub                 | Push source code to GitHub repository                     |
+| 6    | Create ECR Repository          | Create Docker image repository in Amazon Web Services ECR |
+| 7    | Create `buildspec.yml`         | Define CodeBuild phases and Docker push process           |
+| 8    | Create CodeBuild Project       | Configure AWS CodeBuild                                   |
+| 9    | Attach IAM Policies            | Add ECR/ECS/S3/CloudWatch permissions                     |
+| 10   | Create ECS Cluster             | Create Fargate ECS cluster                                |
+| 11   | Run CodeBuild                  | Build Maven project + Docker image + Push to ECR          |
+| 12   | Create Task Definition         | Define container settings for ECS                         |
+| 13   | Run Task OR Create ECS Service | Deploy application using Fargate                          |
+| 14   | Create CodePipeline            | Automate CI/CD pipeline                                   |
+| 15   | Trigger Pipeline               | Push code changes to auto deploy                          |
+| 16   | Access Application             | Open app using ECS public IP                              |
+
+---
+### Deployment Flow
+```
+GitHub Push
+↓
+CodePipeline Trigger
+↓
+CodeBuild
+↓
+Maven Build
+↓
+Docker Build
+↓
+Push Image to ECR
+↓
+ECS Cluster
+↓
+Task Definition
+↓
+ECS Service / Task
+↓
+Application Running
+```
